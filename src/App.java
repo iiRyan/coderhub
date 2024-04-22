@@ -4,15 +4,10 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) throws Exception {
 
-        System.out.println(isMirrored(16461));
-    }
+        int[] arr1 = { 1, 2, 4, 5 };
+        int[] arr2 = { 3, 4, 7, 11 };
 
-    public static boolean isMirrored(int num) {
-        int lastDigit = num % 10;
-        while (num >= 10) {
-            num /= 10;
-        }
-        return num == lastDigit;
+        System.out.println(count_ones(21));
     }
 
     public static int number_sum(int num) {
@@ -240,6 +235,57 @@ public class App {
             }
         }
         return count;
+    }
+
+    public static int reversGivenNumber(int number) {
+        int temp = number;
+        int reversed = 0;
+        while (temp != 0) {
+            int r = temp % 10; // Extract the last digit of the number
+            reversed = reversed * 10 + r; // Append the extracted digit to the reversed number
+            temp /= 10; // Remove the last digit from the original number
+        }
+        return reversed;
+    }
+
+    public static boolean isMirrored(int num) {
+        return num == reversGivenNumber(num);
+    }
+
+    public static int getBiggestShared(int[] a, int[] b) {
+
+        for (int i = 0; i < a.length; i++) {
+            for (int j = 0; j < b.length; j++) {
+                if (a[i] == b[j]) {
+                    return a[i];
+                }
+            }
+
+        }
+        return 0;
+    }
+
+    public static int count_ones(int decimal) {
+
+        if (decimal == 0) {
+            return 0; // Special case for 0
+        }
+
+        int binary = 0;
+        int placeValue = 1;
+        int count = 0;
+        while (decimal > 0) {
+            int remainder = decimal % 2; // Get the remainder when dividing by 2
+            if (remainder == 1) {
+                count++;
+            }
+            binary += remainder * placeValue; // Update the binary number by adding the remainder multiplied by its
+                                              // place value
+            decimal /= 2; // Divide the number by 2
+            placeValue *= 10; // Update the place value for the next digit
+        }
+        return count; // Return the binary representation as an integer
+
     }
 
 }
